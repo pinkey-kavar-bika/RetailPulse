@@ -1,0 +1,506 @@
+/* ============================================================
+   RetailPulse — Professional Dashboard Stylesheet
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* ─── CSS Variables ──────────────────────────────────────── */
+:root {
+    --primary: #4F46E5;
+    --primary-dark: #312E81;
+    --secondary: #6366F1;
+    --accent-green: #10B981;
+    --accent-amber: #F59E0B;
+    --accent-red: #EF4444;
+    --accent-purple: #8B5CF6;
+    --bg-page: #F8FAFC;
+    --bg-card: #FFFFFF;
+    --text-primary: #1E293B;
+    --text-secondary: #64748B;
+    --border-color: #E2E8F0;
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+    --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.08);
+    --shadow-lg: 0 10px 28px rgba(0, 0, 0, 0.12);
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ─── Global ─────────────────────────────────────────────── */
+html, body, .stApp {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
+    background-color: var(--bg-page) !important;
+    color: var(--text-primary);
+}
+
+/* ─── Hide Streamlit Chrome ──────────────────────────────── */
+#MainMenu { visibility: hidden; }
+header { visibility: hidden; }
+footer { visibility: hidden; }
+
+/* ─── Sidebar Base ───────────────────────────────────────── */
+[data-testid="stSidebar"] {
+    background: linear-gradient(175deg, var(--primary-dark) 0%, #3730A3 40%, #4338CA 70%, var(--secondary) 100%) !important;
+    border-right: none !important;
+}
+
+[data-testid="stSidebar"] [data-testid="stSidebarContent"] {
+    padding-top: 1.2rem;
+}
+
+[data-testid="stSidebar"] * {
+    color: white !important;
+}
+
+/* ─── Sidebar Brand ──────────────────────────────────────── */
+.sidebar-brand {
+    text-align: center;
+    padding: 8px 16px 4px 16px;
+}
+.sidebar-brand-icon {
+    font-size: 2.4rem;
+    line-height: 1;
+    margin-bottom: 4px;
+}
+.sidebar-brand-name {
+    font-size: 1.55rem;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    color: white;
+    line-height: 1.2;
+}
+.sidebar-brand-tagline {
+    font-size: 0.72rem;
+    font-weight: 400;
+    opacity: 0.65;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 2px;
+}
+
+/* ─── Sidebar Section Labels ─────────────────────────────── */
+.sidebar-section-label {
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.50) !important;
+    margin: 0 0 6px 14px !important;
+    padding: 0 !important;
+}
+
+/* ─── Sidebar Navigation Radio ───────────────────────────── */
+div[role="radiogroup"] {
+    gap: 2px !important;
+}
+
+div[role="radiogroup"] label {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    padding: 10px 16px !important;
+    border-radius: var(--radius-sm) !important;
+    transition: var(--transition);
+    margin: 0 6px !important;
+    cursor: pointer;
+    border: 1px solid transparent;
+}
+
+/* Hover state */
+div[role="radiogroup"] label:hover {
+    background: rgba(255, 255, 255, 0.10) !important;
+    border-color: rgba(255, 255, 255, 0.08);
+}
+
+/* Active / Selected state */
+div[role="radiogroup"] label[data-checked="true"],
+div[role="radiogroup"] label:has(input:checked) {
+    background: rgba(255, 255, 255, 0.18) !important;
+    font-weight: 700 !important;
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* Hide the radio dot circles */
+div[role="radiogroup"] label > div:first-child {
+    display: none !important;
+}
+
+/* ─── Sidebar Filter Section ─────────────────────────────── */
+[data-testid="stSidebar"] .stMarkdown h2 {
+    font-size: 0.68rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.12em !important;
+    text-transform: uppercase !important;
+    color: rgba(255, 255, 255, 0.50) !important;
+    margin: 4px 0 10px 0 !important;
+}
+
+/* Sidebar — filter field labels */
+[data-testid="stSidebar"] .stSelectbox label,
+[data-testid="stSidebar"] .stSlider label,
+[data-testid="stSidebar"] .stMultiSelect label,
+[data-testid="stSidebar"] .stNumberInput label {
+    color: rgba(255, 255, 255, 0.85) !important;
+    font-weight: 600 !important;
+    font-size: 0.78rem !important;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 2px !important;
+}
+
+/* Sidebar — selectbox */
+[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] {
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    transition: var(--transition);
+}
+[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"]:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.14);
+}
+[data-testid="stSidebar"] .stSelectbox div[data-baseweb="select"] * {
+    color: var(--text-primary) !important;
+    font-size: 0.85rem !important;
+}
+
+/* Sidebar — input / slider */
+[data-testid="stSidebar"] input {
+    color: var(--text-primary) !important;
+    background: rgba(255, 255, 255, 0.94) !important;
+    border-radius: var(--radius-sm) !important;
+}
+[data-testid="stSidebar"] .stSlider label span {
+    font-size: 0.78rem !important;
+}
+[data-testid="stSidebar"] .stSlider [data-baseweb="slider"] div {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+[data-testid="stSidebar"] .stSlider [role="slider"] {
+    background-color: white !important;
+    border: 2px solid var(--primary) !important;
+}
+
+/* Sidebar — divider */
+[data-testid="stSidebar"] hr {
+    border: none !important;
+    height: 1px !important;
+    background: rgba(255, 255, 255, 0.14) !important;
+    margin: 0.7rem 14px !important;
+}
+
+/* ─── Dashboard Title ────────────────────────────────────── */
+.dashboard-title {
+    font-size: 2.15rem;
+    font-weight: 800;
+    color: var(--primary-dark);
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    margin-bottom: 2px;
+}
+.dashboard-subtitle {
+    font-size: 1.02rem;
+    color: var(--text-secondary);
+    margin-top: 0;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+/* ─── Section Headers ────────────────────────────────────── */
+.stApp h1, .stApp h2, .stApp h3 {
+    color: var(--primary-dark) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-weight: 700 !important;
+    letter-spacing: -0.01em;
+}
+
+/* ─── KPI / Metric Cards ────────────────────────────────── */
+div[data-testid="metric-container"] {
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 20px 22px;
+    border: 1px solid var(--border-color);
+    border-left: 5px solid var(--secondary);
+    box-shadow: var(--shadow-md);
+    transition: var(--transition);
+}
+div[data-testid="metric-container"]:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+    border-left-color: var(--primary);
+}
+[data-testid="stMetricLabel"] {
+    font-size: 0.78rem !important;
+    font-weight: 700 !important;
+    color: var(--text-secondary) !important;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+[data-testid="stMetricValue"] {
+    font-size: 1.7rem !important;
+    font-weight: 800 !important;
+    color: var(--primary-dark) !important;
+}
+[data-testid="stMetricDelta"] {
+    font-weight: 600 !important;
+}
+
+/* ─── Buttons ────────────────────────────────────────────── */
+.stButton > button,
+.stFormSubmitButton > button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    padding: 0.55rem 1.6rem !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.88rem !important;
+    transition: var(--transition) !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.28);
+    letter-spacing: 0.01em;
+}
+.stButton > button:hover,
+.stFormSubmitButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.38) !important;
+}
+.stButton > button:active {
+    transform: translateY(0) !important;
+}
+
+/* ─── Download Buttons ───────────────────────────────────── */
+.stDownloadButton > button {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%) !important;
+    color: white !important;
+    border: none !important;
+    border-radius: var(--radius-md) !important;
+    padding: 0.55rem 1.6rem !important;
+    font-weight: 600 !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.88rem !important;
+    transition: var(--transition) !important;
+    box-shadow: 0 2px 8px rgba(79, 70, 229, 0.22);
+}
+.stDownloadButton > button:hover {
+    transform: translateY(-1px) !important;
+    box-shadow: 0 6px 20px rgba(79, 70, 229, 0.34) !important;
+}
+
+/* ─── DataFrames / Tables ────────────────────────────────── */
+[data-testid="stDataFrame"] {
+    border-radius: var(--radius-md) !important;
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+}
+
+/* ─── Dividers ───────────────────────────────────────────── */
+.stApp > [data-testid="stAppViewContainer"] hr {
+    border: none !important;
+    height: 1px !important;
+    background: linear-gradient(90deg, transparent 0%, var(--border-color) 20%, var(--border-color) 80%, transparent 100%) !important;
+    margin: 1.6rem 0 !important;
+    opacity: 0.7;
+}
+
+/* ─── Alert Boxes ────────────────────────────────────────── */
+div[data-testid="stAlert"] {
+    border-radius: var(--radius-md) !important;
+    font-family: 'Inter', sans-serif !important;
+    font-size: 0.92rem;
+    line-height: 1.65;
+}
+
+/* ─── Expanders ──────────────────────────────────────────── */
+[data-testid="stExpander"] {
+    border-radius: var(--radius-md) !important;
+    border: 1px solid var(--border-color) !important;
+    background: var(--bg-card);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+[data-testid="stExpander"] summary {
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+/* ─── Tabs ───────────────────────────────────────────────── */
+.stTabs [data-baseweb="tab-list"] {
+    gap: 6px;
+    border-bottom: 2px solid var(--border-color);
+}
+.stTabs [data-baseweb="tab"] {
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    padding: 10px 22px;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    font-size: 0.9rem;
+    transition: var(--transition);
+}
+.stTabs [data-baseweb="tab"]:hover {
+    background: rgba(79, 70, 229, 0.06);
+}
+.stTabs [aria-selected="true"] {
+    border-bottom: 3px solid var(--primary) !important;
+}
+
+/* ─── Plotly Charts ──────────────────────────────────────── */
+.stPlotlyChart {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+}
+
+/* ─── Captions / Footnotes ───────────────────────────────── */
+.stCaption, [data-testid="stCaption"] {
+    font-size: 0.82rem !important;
+    color: var(--text-secondary) !important;
+    text-align: center;
+    letter-spacing: 0.02em;
+}
+
+/* ─── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #CBD5E1; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #94A3B8; }
+
+/* ─── Main Content Area (lock padding & width) ───────────── */
+.block-container {
+    padding: 2rem 2.5rem 3rem 2.5rem !important;
+    max-width: 1200px !important;
+}
+
+/* ─── Sidebar Width (fixed) ──────────────────────────────── */
+[data-testid="stSidebar"][aria-expanded="true"] {
+    width: 280px !important;
+    min-width: 280px !important;
+    max-width: 280px !important;
+}
+
+/* Keep Streamlit's native sidebar controls accessible above the sidebar edge. */
+[data-testid="stSidebarCollapseButton"],
+[data-testid="stExpandSidebarButton"] {
+    z-index: 1000 !important;
+    overflow: visible !important;
+}
+[data-testid="stExpandSidebarButton"] {
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
+/* ─── Section Headers — normalize h2 & h3 ────────────────── */
+/* st.subheader() → h2, st.markdown("### …") → h3.           */
+/* We make them visually identical so pages look the same.     */
+.stApp [data-testid="stAppViewContainer"] h2,
+.stApp [data-testid="stAppViewContainer"] h3,
+.stApp [data-testid="stAppViewContainer"] .section-header {
+    font-size: 1.25rem !important;
+    font-weight: 700 !important;
+    color: var(--primary-dark) !important;
+    font-family: 'Inter', sans-serif !important;
+    letter-spacing: -0.01em;
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.75rem !important;
+    line-height: 1.35;
+}
+
+/* ─── KPI Metric Row Spacing ─────────────────────────────── */
+div[data-testid="stHorizontalBlock"]:has(div[data-testid="metric-container"]) {
+    margin-bottom: 0.5rem !important;
+}
+
+/* ─── Vertical Block Rhythm ──────────────────────────────── */
+[data-testid="stVerticalBlock"] > div {
+    margin-bottom: 0.25rem;
+}
+
+/* ─── Chart Containers ───────────────────────────────────── */
+.stPlotlyChart {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    box-shadow: var(--shadow-sm);
+    padding: 8px;
+    margin-bottom: 0.5rem;
+}
+
+/* ─── Alert / Info / Success Box Spacing ─────────────────── */
+div[data-testid="stAlert"] {
+    margin-bottom: 0.75rem !important;
+}
+
+/* ─── Responsive ─────────────────────────────────────────── */
+@media (max-width: 768px) {
+    .block-container { padding: 1.2rem 1rem 2rem 1rem !important; }
+    .dashboard-title { font-size: 1.55rem; }
+    .dashboard-subtitle { font-size: 0.9rem; }
+    div[data-testid="metric-container"] { padding: 14px 16px; }
+    [data-testid="stMetricValue"] { font-size: 1.35rem !important; }
+    [data-testid="stMetricLabel"] { font-size: 0.72rem !important; }
+    .sidebar-brand-name { font-size: 1.3rem; }
+    .home-nav-card { padding: 18px 16px; }
+    .home-nav-card-icon { font-size: 1.6rem; }
+}
+
+/* ─── Home Page — Navigation Cards ───────────────────────── */
+.home-nav-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 22px 20px;
+    text-align: center;
+    min-height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    box-shadow: var(--shadow-sm);
+    cursor: default;
+}
+.home-nav-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
+}
+.home-nav-card-icon {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    line-height: 1;
+}
+.home-nav-card-title {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--primary-dark);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+}
+.home-nav-card-desc {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.45;
+}
+
+/* The button overlays each card, preserving its existing visual design. */
+[data-testid="stVerticalBlock"]:has([class*="st-key-quick-nav-"]) {
+    position: relative;
+}
+[class*="st-key-quick-nav-"] {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+}
+[class*="st-key-quick-nav-"] button {
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+[data-testid="stVerticalBlock"]:has([class*="st-key-quick-nav-"]):hover .home-nav-card,
+[data-testid="stVerticalBlock"]:has([class*="st-key-quick-nav-"] button:focus-visible) .home-nav-card {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--secondary);
+}
