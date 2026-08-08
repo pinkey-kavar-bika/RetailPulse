@@ -21,6 +21,13 @@ The application is built using **Python**, **Machine Learning**, **Streamlit**, 
 
 ---
 
+---
+# RetailPulse
+
+[![Live Demo](https://img.shields.io/badge/Live-Demo-brightgreen)](https://retailpulse-app-3bxa4n29pylemdsfb6nfka.streamlit.app/)
+
+---
+
 # 🎯 Problem Statement
 
 Retail organizations generate massive volumes of transactional data every day. Extracting meaningful insights from this data is challenging due to:
