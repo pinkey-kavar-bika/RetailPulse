@@ -3,25 +3,62 @@ import plotly.express as px
 from utils import load_data, charts, helpers, formatters
 from utils.constants import *
 
+
+def _matches_filter(values, selected_value: str):
+    """Compare text filters without letting case or surrounding spaces hide rows."""
+    return (
+        values.fillna("").astype(str).str.strip().str.casefold()
+        == str(selected_value).strip().casefold()
+    )
+
+
 def show(filter_values: dict | None = None) -> None:
     customers = load_data.load_customers()
 
     # ── Apply filters from sidebar ──
     if filter_values:
         if filter_values.get("country") and filter_values["country"] != "All":
-            customers = customers[customers["Country"] == filter_values["country"]]
+            customers = customers[
+                _matches_filter(customers["Country"], filter_values["country"])
+            ]
         if filter_values.get("segment") and filter_values["segment"] != "All":
-            customers = customers[customers["CustomerSegment"] == filter_values["segment"]]
+            customers = customers[
+                _matches_filter(customers["CustomerSegment"], filter_values["segment"])
+            ]
 
     helpers.render_page_header(
         "👥 Customer Analytics",
         "Analyze customer purchasing behaviour, revenue and engagement."
     )
 
+    # A country and a segment can each be valid filter choices without having
+    # any customers in common. Stop before creating charts or calling idxmax().
+    if customers.empty:
+        c1, c2, c3, c4 = st.columns(4)
+        with c1:
+            st.metric("👥 Customers", "0")
+        with c2:
+            st.metric("💰 Revenue", formatters.currency(0))
+        with c3:
+            st.metric("🧾 Total Invoices", "0")
+        with c4:
+            st.metric("🛒 Avg Order Value", "—")
+
+        st.divider()
+        st.info(
+            "No customer records match the selected filters. "
+            "Adjust a filter to view analytics."
+        )
+        helpers.render_footer("Customer Analytics")
+        return
+
     total_customers = customers["CustomerID"].nunique()
     total_revenue = customers["TotalRevenue"].sum()
     total_invoices = customers["TotalInvoices"].sum()
-    avg_order_value = customers["AvgOrderValue"].mean()
+    avg_order_value = (
+        total_revenue / total_invoices
+        if total_invoices > 0 else 0
+    )
 
     c1, c2, c3, c4 = st.columns(4)
     with c1:

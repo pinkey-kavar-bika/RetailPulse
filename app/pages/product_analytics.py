@@ -17,6 +17,11 @@ def show(filter_values: dict | None = None) -> None:
     if filter_values and "revenue_range" in filter_values:
         rmin, rmax = filter_values["revenue_range"]
         df = df[(df["TotalRevenue"] >= rmin) & (df["TotalRevenue"] <= rmax)]
+
+    if df.empty:
+        st.warning("No products match the selected revenue range. Adjust the filter to view product analytics.")
+        helpers.render_footer("Product Analytics")
+        return
         
     total_products = len(df)
     total_revenue = df['TotalRevenue'].sum()

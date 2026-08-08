@@ -23,7 +23,10 @@ def show(filter_values: dict | None = None) -> None:
     total_revenue = filtered["TotalRevenue"].sum()
     total_orders = filtered["TotalOrders"].sum()
     total_customers = filtered["TotalCustomers"].sum()
-    avg_revenue_customer = filtered["AverageRevenuePerCustomer"].mean()
+    avg_revenue_customer = (
+        total_revenue / total_customers
+        if total_customers > 0 else 0
+    )
 
     # KPI CARDS
     c1, c2, c3, c4, c5 = st.columns(5)
