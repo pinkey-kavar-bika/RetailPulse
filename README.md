@@ -331,18 +331,6 @@ streamlit run app/app.py
 
 ---
 
-# 🚀 Live Demo
-
-The application is deployed on Streamlit Community Cloud.
-
-**Live URL:**
-
-```
-<YOUR_STREAMLIT_URL>
-```
-
----
-
 # 📌 Future Improvements
 
 - Real-time data pipeline
@@ -356,10 +344,9 @@ The application is deployed on Streamlit Community Cloud.
 
 # 👥 Contributors
 
-- Nasrin Khatoon
-- Pinkey Kavar Bika
-- Sheikh Moin
-- RetailPulse Development Team
+- Nasrin Khatoon - https://github.com/nasrin567
+- Pinkey Kavar Bika - https://github.com/pinkey-kavar-bika 
+- Sheikh Moin - https://github.com/sheikhmoin-09
 
 ---
 
