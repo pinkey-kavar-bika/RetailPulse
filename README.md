@@ -19,7 +19,6 @@ RetailPulse is an end-to-end AI-powered Retail Analytics platform developed usin
 
 The application is built using **Python**, **Machine Learning**, **Streamlit**, and modern data visualization libraries to provide an intuitive analytics experience.
 
----
 
 ---
 # RetailPulse
