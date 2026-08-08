@@ -154,7 +154,7 @@ def show(filter_values: dict | None = None) -> None:
                 churn_summary["Customers"] > 0, "Status"
             ].iloc[0]
             fig = go.Figure(data=[go.Indicator(
-                mode="number+delta",
+                mode="number",
                 value=churn_summary.loc[
                     churn_summary["Customers"] > 0, "Customers"
                 ].iloc[0],
@@ -390,11 +390,22 @@ def show(filter_values: dict | None = None) -> None:
             fig = go.Figure(data=[go.Indicator(
                 mode="number+delta",
                 value=row["ChurnRate"],
-                number=dict(suffix="%", font=dict(size=52, color=PRIMARY_DARK)),
-                title=dict(text=f"Churn Rate — {row['Country']}"),
-                delta=dict(
-                    reference=50,
+                number=dict(
                     suffix="%",
+                    valueformat=".1f",
+                    font=dict(size=52, color=PRIMARY_DARK)
+                ),
+                title=dict(
+                    text=(
+                        f"Churn Rate — {row['Country']}<br>"
+                        f"<span style='font-size:14px;color:#64748B'>"
+                        f"Compared with overall churn rate ({churn_rate:.1f}%)</span>"
+                    )
+                ),
+                delta=dict(
+                    reference=churn_rate,
+                    valueformat=".1f",
+                    suffix=" pp",
                     relative=False,
                     increasing=dict(color=ACCENT_RED),
                     decreasing=dict(color=ACCENT_GREEN)

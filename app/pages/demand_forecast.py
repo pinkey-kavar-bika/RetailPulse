@@ -16,9 +16,16 @@ def show() -> None:
         st.warning("Data not available.")
         return
         
-    forecast_days = len(forecast_df)
-    avg_predicted_revenue = forecast_df['yhat'].mean()
-    forecast_range = (forecast_df['yhat_upper'] - forecast_df['yhat_lower']).mean()
+    forecast_df = forecast_df.copy()
+    forecast_df['ds'] = pd.to_datetime(forecast_df['ds'])
+    forecast_period = forecast_df[forecast_df['ds'] > sales_df['ds'].max()]
+
+    forecast_days = len(forecast_period)
+    avg_predicted_revenue = forecast_period['yhat'].mean() if forecast_days else 0
+    forecast_range = (
+        (forecast_period['yhat_upper'] - forecast_period['yhat_lower']).mean()
+        if forecast_days else 0
+    )
     actual_data_points = len(sales_df)
     
     col1, col2, col3, col4 = st.columns(4)
@@ -70,8 +77,13 @@ def show() -> None:
     
     st.markdown("### Monthly Forecast Summary")
     # Resample
-    forecast_df['ds'] = pd.to_datetime(forecast_df['ds'])
-    monthly_forecast = forecast_df.set_index('ds').resample('ME')['yhat'].sum().reset_index()
+    monthly_forecast = (
+        forecast_period
+        .set_index('ds')
+        .resample('ME')['yhat']
+        .sum()
+        .reset_index()
+    )
     fig_monthly = px.bar(
         monthly_forecast, 
         x='ds', 
@@ -81,13 +93,19 @@ def show() -> None:
     )
     charts.render(fig_monthly, height=CHART_MD)
     
-    st.markdown("### Forecast Accuracy")
+    st.markdown("### Historical Fit Accuracy")
     
     sales_df['ds'] = pd.to_datetime(sales_df['ds'])
     merged = pd.merge(sales_df, forecast_df, on='ds', how='inner')
-    if not merged.empty:
+    merged_nonzero = merged[merged['y'] != 0]
+    if not merged_nonzero.empty:
         mae = np.mean(np.abs(merged['y'] - merged['yhat']))
-        mape = np.mean(np.abs((merged['y'] - merged['yhat']) / merged['y'])) * 100
+        mape = np.mean(
+            np.abs(
+                (merged_nonzero['y'] - merged_nonzero['yhat'])
+                / merged_nonzero['y']
+            )
+        ) * 100
         
         col1, col2 = st.columns(2)
         with col1:
@@ -95,12 +113,12 @@ def show() -> None:
         with col2:
             st.metric("Mean Absolute Percentage Error (MAPE)", formatters.percent(mape))
     else:
-        st.info("No overlapping dates to compute accuracy.")
+        st.info("No non-zero historical sales dates are available to compute accuracy.")
         
     st.markdown("### Forecast Data")
-    st.dataframe(forecast_df, use_container_width=True)
+    st.dataframe(forecast_period, use_container_width=True)
     
-    csv = forecast_df.to_csv(index=False).encode('utf-8')
+    csv = forecast_period.to_csv(index=False).encode('utf-8')
     st.download_button(
         label="Download Forecast Data",
         data=csv,
